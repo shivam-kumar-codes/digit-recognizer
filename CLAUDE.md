@@ -53,6 +53,9 @@ decision (with a one-line rationale) here once made:
   like this, what a given matrix shape represents) liberally, since the
   explicit point of this phase is learning from first principles, not
   writing minimal production code.
+- Phase 1 functions should cite which equation/section of Nielsen's book
+  they implement (e.g. "# implements eq. 16: w -> w - (η/m)Σ∂C_x/∂w")
+  so the code can be cross-referenced against the book directly.
 - **All other phases (FastAPI, frontend, PyTorch, tests, infra):** standard
   terse style — comment only non-obvious WHY, not WHAT. Well-named code
   over explanatory comments.
@@ -64,6 +67,12 @@ decision (with a one-line rationale) here once made:
   especially in Phase 1.
 
 ## Working agreements
+- Within v1 (phases 1–2), follow the build order in `PROJECT_SPEC.md`'s
+  "Build order within v1" section: train/verify the numpy model via CLI,
+  then wrap it in FastAPI, then build the canvas frontend against the
+  local API, then deploy last. Don't jump ahead to a later step (e.g.
+  deployment config, frontend work) before the earlier ones are verified
+  working.
 - Don't start building a phase's code until the user explicitly asks —
   even though the roadmap is known, each phase should be a deliberate,
   discussed step, not an automatic continuation.

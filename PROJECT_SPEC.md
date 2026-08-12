@@ -25,6 +25,15 @@ a deployed product to a hardened, MLOps-instrumented, PyTorch-based v2.
 v1 is considered done the moment all four of the above are true
 simultaneously. Nothing else is required for v1.
 
+## Build order within v1
+The four v1 components are built strictly in this order, each verified
+before the next begins:
+1. Train the numpy model, verify via a CLI script (no backend/frontend
+   involved yet).
+2. Wrap the trained model in a FastAPI backend.
+3. Build the canvas frontend against the local API.
+4. Deploy last, only once steps 1–3 work together locally.
+
 ## Explicitly out of scope (for now)
 These are real, planned phases (2–6 of the project roadmap) but are
 **not** part of v1 and should not be pulled forward:
