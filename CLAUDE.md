@@ -11,7 +11,7 @@ and a Claude Code workflow learning project. See `PROJECT_SPEC.md` for the
 full spec and v1 scope boundary.
 
 ## Roadmap & current phase status
-1. **[NOT STARTED]** From-scratch numpy neural network (Nielsen-style),
+1. **[DONE]** From-scratch numpy neural network (Nielsen-style),
    trained on MNIST
 2. **[NOT STARTED]** Ship it: FastAPI backend + canvas frontend, deployed
    publicly
@@ -21,9 +21,11 @@ full spec and v1 scope boundary.
    monitoring
 6. **[NOT STARTED]** Polish: README, demo, resume write-up
 
-**Right now:** only the foundation docs (`PROJECT_SPEC.md`, this file)
-exist. No model, backend, or frontend code has been written. Do not start
-Phase 1 code until the user explicitly asks for it.
+**Right now:** Phase 1 is done — `model/network.py` implements the
+network, trained via `model/train.py` to 95.14% test accuracy, weights
+saved to `model/weights/mnist_weights.npz`, verified via
+`model/predict.py`. No backend or frontend code exists yet. Don't start
+Phase 2 code until the user explicitly asks for it.
 
 > Update the status markers above as phases start/finish. Keep this
 > section current — it's the fastest way for a future session to know
@@ -31,9 +33,17 @@ Phase 1 code until the user explicitly asks for it.
 
 ## Tech stack decisions
 Decided so far:
-- **Python dependency/env management:** `uv` (venv + deps + lockfile)
+- **Python dependency/env management:** `uv` (venv + deps + lockfile) —
+  single tool for interpreter, venv, deps, and lockfile instead of
+  juggling pyenv/pip/venv separately. Wasn't preinstalled on this
+  machine; installed via `pip install uv` in Phase 1.
 - **Phase 1 model:** pure numpy, no ML framework (the point is to
   implement backprop etc. by hand, Nielsen-style)
+- **Phase 1 data loading:** `torchvision.datasets.MNIST` for
+  download/decode only (not training) — avoids hand-writing an IDX-file
+  parser when the point of Phase 1 is the network math, not MNIST's file
+  format. `Pillow` for image preprocessing (grayscale/resize) in
+  `predict.py`.
 - **Phase 2 backend:** FastAPI
 - **Phase 2 frontend:** plain HTML/JS canvas (no framework, unless a
   need emerges)

@@ -1,0 +1,13 @@
+[project]
+name = "digit-recognizer"
+version = "0.1.0"
+description = "Digit Recognizer — Production Edition"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.0",
+    "pillow>=10.0",
+    "torchvision>=0.20",
+]
+
+[tool.uv]
+package = false
